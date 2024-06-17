@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import axios from "axios"
 import { UserContext } from '../../context/UserContext'
 
 const register = () => {
@@ -8,9 +9,27 @@ const register = () => {
   setPassword,
   password,
   email,
-  setUsername} = useContext(UserContext)
+  setUsername,
+  errMsg, 
+  setErrMsg
+  } = useContext(UserContext);
+
+  const handleAddUser =async (e)=>{
+    e.preventDefault();
+    try{
+
+      const res = await axios.post("http://localhost:5050/api/user",{username,email,password});
+      const data = await res.data;
+      setErrMsg(data.msg);
+      alert(data.msg)
+    }catch(err){
+      console.log(err);
+    }
+  }
   return (
-    <form>
+    <div className='form'>
+
+    <form onSubmit={handleAddUser}>
       <h3>Registration</h3>
       <div className="input-control">
         <input 
@@ -39,8 +58,16 @@ const register = () => {
         placeholder='password'
         />
       </div>
+      { errMsg ?
+
+      (<p className="feedback">{errMsg}</p>):(
+        ""
+      )
+      }
+      <button type="submit">submit</button>
       
     </form>
+    </div>
   )
 }
 

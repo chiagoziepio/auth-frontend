@@ -9,6 +9,7 @@ const UserContextProvider = ({children})=>{
     const [password, setPassword] = useState("")
     const [resetPassword, setResetPassword] = useState("")
     const [reEmail , setREemail]= useState("")
+    const [errMsg, setErrMsg] = useState("")
 
     return (
         <UserContext.Provider value={{
@@ -21,7 +22,10 @@ const UserContextProvider = ({children})=>{
             reEmail,
             resetPassword,
             setResetPassword,
-            setUsername}}>
+            setUsername,
+            errMsg,
+             setErrMsg
+            }}>
             
             {children}
             
