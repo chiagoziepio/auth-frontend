@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import axios from "axios"
 import { UserContext } from '../../context/UserContext'
+import { Link } from "react-router-dom"
 
 const register = () => {
  const {
@@ -22,9 +23,16 @@ const register = () => {
       const data = await res.data;
       setErrMsg(data.msg);
       alert(data.msg)
+      
     }catch(err){
       console.log(err);
+      setErrMsg(err.response.data.msg);
+      alert(err.msg)
     }
+      setEmail("");
+      setPassword("");
+      setUsername("");
+      setErrMsg("")
   }
   return (
     <div className='form'>
@@ -58,6 +66,7 @@ const register = () => {
         placeholder='password'
         />
       </div>
+      <span>Already has account? <Link to= "/login">login</Link></span>
       { errMsg ?
 
       (<p className="feedback">{errMsg}</p>):(
