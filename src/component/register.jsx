@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import axios from "axios"
 import { UserContext } from '../../context/UserContext'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const register = () => {
  const {
@@ -14,7 +14,7 @@ const register = () => {
   errMsg, 
   setErrMsg
   } = useContext(UserContext);
-
+const navigate = useNavigate()
   const handleAddUser =async (e)=>{
     e.preventDefault();
     try{
@@ -23,11 +23,11 @@ const register = () => {
       const data = await res.data;
       setErrMsg(data.msg);
       alert(data.msg)
-      
+      navigate("/login")
     }catch(err){
       console.log(err);
       setErrMsg(err.response.data.msg);
-      alert(err.msg)
+      alert(err.response.data.msg)
     }
       setEmail("");
       setPassword("");

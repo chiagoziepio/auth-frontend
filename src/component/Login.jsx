@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import axios from "axios"
 import { UserContext } from '../../context/UserContext'
-import { Link } from  "react-router-dom"
+import { Link, useNavigate } from  "react-router-dom"
 
 const Login = () => {
  const {
@@ -16,6 +16,8 @@ const Login = () => {
   } = useContext(UserContext);
 
   axios.defaults.withCredentials = true;
+
+  const navigate = useNavigate()
   const handleLogin =async (e)=>{
     e.preventDefault();
     try{
@@ -24,7 +26,7 @@ const Login = () => {
       const data = await res.data;
       setErrMsg(data.msg);
       alert(data.msg)
-      
+      navigate("/")
     }catch(err){
       console.log(err);
       setErrMsg(err.response.data.msg);
@@ -58,7 +60,10 @@ const Login = () => {
         placeholder='password'
         />
       </div>
-      <span>Have no account? <Link to= "/register">register</Link></span>
+      <div className="more_info">
+        <span>Have no account? <Link to= "/register">register</Link></span>
+          <Link to = "/forgotpassword" className='forgotLink'>forgot password?</Link>
+      </div>
       { errMsg ?
 
       (<p className="feedback">{errMsg}</p>):(

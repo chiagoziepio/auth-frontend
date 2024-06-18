@@ -69,3 +69,11 @@ form button{
     color: #ffffffc5;
     cursor: pointer;
 }
+form .more_info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.forgotLink{
+    font-size: 15px;
+}

@@ -20,7 +20,7 @@ function App() {
                   <Route path='/register' element = {<Register/>}/>
                   <Route path='/login' element = {<Login/>}/>
                   <Route path='/forgotpassword' element = {<ForgotPwd/>}/>
-                  <Route path='/resetpassword' element = {<ResetPwd/>}/>
+                  <Route path='/resetpassword/:resetToken' element = {<ResetPwd/>}/>
                   
                 </Routes>
           </UserContextProvider>
