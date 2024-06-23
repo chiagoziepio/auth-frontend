@@ -15,11 +15,10 @@ const navigate = useNavigate()
     e.preventDefault();
     try{
 
-      const res = await axios.post("http://localhost:5050/api/user/resetpassword",{email});
+      const res = await axios.post("http://localhost:5050/api/user/forgotpassword",{email});
       const data = await res.data;
       setErrMsg(data.msg);
       alert(data.msg)
-      navigate("/resetpassword")
     }catch(err){
       console.log(err);
       setErrMsg(err.response.data.msg);

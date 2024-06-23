@@ -30,7 +30,7 @@ const Login = () => {
     }catch(err){
       console.log(err);
       setErrMsg(err.response.data.msg);
-      alert(err.msg)
+      alert(err.response.data.msg)
     }
       
       setPassword("");
