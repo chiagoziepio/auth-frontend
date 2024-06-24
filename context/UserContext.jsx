@@ -10,7 +10,7 @@ const UserContextProvider = ({children})=>{
     const [resetPassword, setResetPassword] = useState("")
     const [reEmail , setREemail]= useState("")
     const [errMsg, setErrMsg] = useState("")
-    const [user, setUser] = useState()
+    const [user, setUser] = useState(null)
 
     return (
         <UserContext.Provider value={{

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   let theUser;
@@ -15,19 +15,16 @@ const Dashboard = () => {
             try {
                 const res= await axios.get("http://localhost:5050/api/user/verify")
                 const data = await res.data
-                if(res.ok){
-                  console.log("sending it");
-                }
                 theUser = data.user
                
                 console.log(theUser);
                 setUser(theUser)
                 
             } catch (error) {
-                navigate("/")
+                
                 console.log(error);
-
-                alert(error.response.msg)
+                navigate("/")
+                alert(error.response.data.msg)
             }
         }
         verifyUser()
@@ -35,11 +32,24 @@ const Dashboard = () => {
     },[])
     
     console.log(user);
+    axios.defaults.withCredentials = true;
+    const handleLogout = async()=>{
+      try {
+        const res = await axios.get("http://localhost:5050/api/user/logout");
+        if(res.status){
+          navigate("/")
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   return (
-    <div>
+    <div className='dashboard'>
        <h3>Dashboard</h3> 
-       <div>
-
+       
+        {user && 
+        <div>
+          
          {user.map(use=>(
             <div key={use.id}>
                 <p>{use.username}</p>
@@ -47,8 +57,9 @@ const Dashboard = () => {
 
             </div>
         ))}
-       </div>
-
+          </div>}
+       
+        <button onClick={handleLogout}>Logout</button>
     </div>
   )
 }
