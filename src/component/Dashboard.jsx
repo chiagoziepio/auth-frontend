@@ -4,6 +4,7 @@ import { UserContext } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  let theUser;
     const {
         user, 
         setUser
@@ -12,16 +13,19 @@ const Dashboard = () => {
     useEffect(()=>{
         const verifyUser = async()=>{
             try {
-                const res= await axios.get("http://localhost:5050/api/user/verify");
+                const res= await axios.get("http://localhost:5050/api/user/verify")
                 const data = await res.data
-                const theUser = data.user
+                if(res.ok){
+                  console.log("sending it");
+                }
+                theUser = data.user
                
                 console.log(theUser);
-              
                 setUser(theUser)
+                
             } catch (error) {
-                console.log(error);
                 navigate("/")
+                console.log(error);
 
                 alert(error.response.msg)
             }
@@ -29,6 +33,7 @@ const Dashboard = () => {
         verifyUser()
         
     },[])
+    
     console.log(user);
   return (
     <div>
